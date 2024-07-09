@@ -1,16 +1,32 @@
 import styled from '@emotion/styled';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 import { DefaultGoodsItems } from '@/components/common/GoodsItem/Default';
 import { Container } from '@/components/common/layouts/Container';
 import { Grid } from '@/components/common/layouts/Grid';
 import { breakpoints } from '@/styles/variants';
-import { GoodsMockList } from '@/types/mock';
-
+import type { GoodsData } from '@/types';
 type Props = {
   themeKey: string;
 };
 
-export const ThemeGoodsSection = ({}: Props) => {
+export const ThemeGoodsSection = ({ themeKey }: Props) => {
+  const [Goods, setGoods] = useState<GoodsData[]>([]);
+
+  useEffect(() => {
+    const fetchGoods = async () => {
+      const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/themes/${themeKey}/products?maxResults=20`;
+      try {
+        const response = await axios.get(url);
+        setGoods(response.data.products);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchGoods();
+  });
+
   return (
     <Wrapper>
       <Container>
@@ -21,7 +37,7 @@ export const ThemeGoodsSection = ({}: Props) => {
           }}
           gap={16}
         >
-          {GoodsMockList.map(({ id, imageURL, name, price, brandInfo }) => (
+          {Goods.map(({ id, imageURL, name, price, brandInfo }) => (
             <DefaultGoodsItems
               key={id}
               imageSrc={imageURL}
