@@ -7,6 +7,8 @@ import { Container } from '@/components/common/layouts/Container';
 import { Grid } from '@/components/common/layouts/Grid';
 import { breakpoints } from '@/styles/variants';
 import type { GoodsData } from '@/types';
+import type { GoodsResponse } from '@/types';
+
 type Props = {
   themeKey: string;
 };
@@ -22,7 +24,7 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
     const fetchGoods = async (retries = 0) => {
       const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/themes/${themeKey}/products?maxResults=20`;
       try {
-        const response = await axios.get(url);
+        const response = await axios.get<GoodsResponse>(url);
         setGoods(response.data.products);
         setLoading(false);
       } catch (error) {

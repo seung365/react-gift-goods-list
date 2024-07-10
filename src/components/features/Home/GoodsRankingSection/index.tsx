@@ -6,6 +6,7 @@ import { Container } from '@/components/common/layouts/Container';
 import { breakpoints } from '@/styles/variants';
 import type { RankingFilterOption } from '@/types';
 import type { GoodsData } from '@/types';
+import type { GoodsResponse } from '@/types';
 
 import { GoodsRankingFilter } from './Filter';
 import { GoodsRankingList } from './List';
@@ -22,7 +23,7 @@ export const GoodsRankingSection = () => {
     const fetchGoods = async () => {
       const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/ranking/products?targetType=${filterOption.targetType}&rankType=${filterOption.rankType}`;
       try {
-        const response = await axios.get(url);
+        const response = await axios.get<GoodsResponse>(url);
         setGoodsItem(response.data.products);
         setErrorMessage(null);
       } catch (error) {
