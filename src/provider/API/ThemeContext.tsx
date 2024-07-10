@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const fetchTheme = async () => {
       const url = 'https://react-gift-mock-api-seungbeom.vercel.app/api/v1/themes';
       try {
-        const response = await axios.get(url);
+        const response = await axios.get<{ themes: ThemeData[] }>(url);
         setthemes(response.data.themes);
         setLoading(false);
       } catch (error) {

@@ -18,7 +18,7 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
     const fetchGoods = async () => {
       const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/themes/${themeKey}/products?maxResults=20`;
       try {
-        const response = await axios.get(url);
+        const response = await axios.get<{ products: GoodsData[] }>(url);
         setGoods(response.data.products);
       } catch (error) {
         console.error(error);

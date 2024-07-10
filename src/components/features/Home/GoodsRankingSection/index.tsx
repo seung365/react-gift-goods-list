@@ -20,7 +20,7 @@ export const GoodsRankingSection = () => {
     const fetchGoods = async () => {
       const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/ranking/products?targetType=${filterOption.targetType}&rankType=${filterOption.rankType}`;
       try {
-        const response = await axios.get(url);
+        const response = await axios.get<{ products: GoodsData[] }>(url);
         setGoodsItem(response.data.products);
       } catch (error) {
         console.error(error);
