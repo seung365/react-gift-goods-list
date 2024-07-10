@@ -32,3 +32,11 @@ export type GoodsData = {
     imageURL: string;
   };
 };
+
+export interface GoodsResponse {
+  products: GoodsData[];
+}
+
+export interface ThemesResponse {
+  themes: ThemeData[];
+}
