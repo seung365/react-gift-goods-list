@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import type { ThemeData } from '@/types/index';
+import type { ThemeResponse } from '@/types/index';
 
 interface ThemeContextProps {
   themes: ThemeData[];
@@ -18,7 +19,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const fetchTheme = async () => {
       const url = 'https://react-gift-mock-api-seungbeom.vercel.app/api/v1/themes';
       try {
-        const response = await axios.get<{ themes: ThemeData[] }>(url);
+        const response = await axios.get<ThemeResponse>(url);
         setthemes(response.data.themes);
         setLoading(false);
       } catch (error) {
