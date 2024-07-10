@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const ThemeGoodsSection = ({ themeKey }: Props) => {
-  const [Goods, setGoods] = useState<GoodsData[]>([]);
+  const [goods, setGoods] = useState<GoodsData[]>([]);
 
   useEffect(() => {
     const fetchGoods = async () => {
@@ -37,7 +37,7 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
           }}
           gap={16}
         >
-          {Goods.map(({ id, imageURL, name, price, brandInfo }) => (
+          {goods.map(({ id, imageURL, name, price, brandInfo }) => (
             <DefaultGoodsItems
               key={id}
               imageSrc={imageURL}

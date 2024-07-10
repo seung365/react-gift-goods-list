@@ -15,7 +15,7 @@ export const GoodsRankingSection = () => {
     targetType: 'ALL',
     rankType: 'MANY_WISH',
   });
-  const [GoodsItem, setGoodsItem] = useState<GoodsData[]>([]);
+  const [goodsItem, setGoodsItem] = useState<GoodsData[]>([]);
   useEffect(() => {
     const fetchGoods = async () => {
       const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/ranking/products?targetType=${filterOption.targetType}&rankType=${filterOption.rankType}`;
@@ -34,7 +34,7 @@ export const GoodsRankingSection = () => {
       <Container>
         <Title>실시간 급상승 선물랭킹</Title>
         <GoodsRankingFilter filterOption={filterOption} onFilterOptionChange={setFilterOption} />
-        <GoodsRankingList goodsList={GoodsItem} />
+        <GoodsRankingList goodsList={goodsItem} />
       </Container>
     </Wrapper>
   );
