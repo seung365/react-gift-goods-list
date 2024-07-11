@@ -18,7 +18,7 @@ export const GoodsRankingSection = () => {
     targetType: 'ALL',
     rankType: 'MANY_WISH',
   });
-  const [GoodsItem, setGoodsItem] = useState<GoodsData[]>([]);
+  const [goodsItem, setGoodsItem] = useState<GoodsData[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -44,7 +44,7 @@ export const GoodsRankingSection = () => {
       <Container>
         <Title>실시간 급상승 선물랭킹</Title>
         <GoodsRankingFilter filterOption={filterOption} onFilterOptionChange={setFilterOption} />
-        <GoodsRankingList goodsList={GoodsItem} loading={loading} errorMessage={errorMessage} />
+        <GoodsRankingList goodsList={goodsItem} loading={loading} errorMessage={errorMessage} />
       </Container>
     </Wrapper>
   );
