@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/common/Button';
 import { RankingGoodsItems } from '@/components/common/GoodsItem/Ranking';
 import { Grid } from '@/components/common/layouts/Grid';
+import { Spinner } from '@/components/common/Spinner';
 import { breakpoints } from '@/styles/variants';
 import type { GoodsData } from '@/types';
 
@@ -19,9 +20,17 @@ export const GoodsRankingList = ({ goodsList, loading, errorMessage }: Props) =>
   const currentGoodsList = hasMore ? goodsList : goodsList.slice(0, 6);
   console.log(goodsList);
   console.log(errorMessage);
+
+  if (loading) {
+    return (
+      <Wrapper>
+        <Spinner />
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
-      {loading && <div>로딩 중...</div>}
       {errorMessage !== null ? (
         <div>{errorMessage}</div>
       ) : goodsList.length === 0 ? (
