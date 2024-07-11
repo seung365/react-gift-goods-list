@@ -12,7 +12,7 @@ interface ThemeContextProps {
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [themes, setthemes] = useState<ThemeData[]>([]);
+  const [themes, setThemes] = useState<ThemeData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       const url = 'https://react-gift-mock-api-seungbeom.vercel.app/api/v1/themes';
       try {
         const response = await axios.get<ThemesResponse>(url);
-        setthemes(response.data.themes);
+        setThemes(response.data.themes);
         setLoading(false);
       } catch (error) {
         console.error(error);
