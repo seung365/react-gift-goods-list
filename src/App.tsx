@@ -1,11 +1,15 @@
+import { ThemeProvider } from '@/provider/API/ThemeContext';
+
 import { AuthProvider } from './provider/Auth';
 import { Routes } from './routes';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 
