@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import type { AxiosError } from 'axios';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -8,7 +9,7 @@ import { Grid } from '@/components/common/layouts/Grid';
 import { breakpoints } from '@/styles/variants';
 import type { GoodsData } from '@/types';
 import type { GoodsResponse } from '@/types';
-
+import { handleError } from '@/utils/errorHandler';
 type Props = {
   themeKey: string;
 };
@@ -16,7 +17,7 @@ type Props = {
 export const ThemeGoodsSection = ({ themeKey }: Props) => {
   const [goods, setGoods] = useState<GoodsData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [rending, setRending] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const maxRetries = 5;
   const retryDelay = 1000;
 
@@ -33,7 +34,7 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
           setTimeout(() => fetchGoods(retries + 1), retryDelay);
         } else {
           setLoading(false);
-          setRending(false);
+          setErrorMessage(handleError(error as AxiosError));
         }
       }
     };
@@ -45,7 +46,7 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
     <Wrapper>
       <Container alignItems="center">
         {loading && <Spinner />}
-        {!rending && <div>에러가 발생했습니다.</div>}
+        {errorMessage !== null && <div>{errorMessage}</div>}
         <Grid
           columns={{
             initial: 2,
