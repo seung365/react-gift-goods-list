@@ -23,3 +23,4 @@
 - [x] 각 API에서 Loading 상태에 대한 UI 대응을 해요. => loading 중인 경우 UI 처리
 - [x] 데이터가 없는 경우에 대한 UI 대응을 해요. => errorMessage란 상태를 두어 처리
 - [x] Http Status에 따라 Error를 다르게 처리해요. => errorHandler.ts를 사용하여 처리
+
