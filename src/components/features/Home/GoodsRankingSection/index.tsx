@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import type { AxiosError } from 'axios';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -7,6 +8,7 @@ import { breakpoints } from '@/styles/variants';
 import type { RankingFilterOption } from '@/types';
 import type { GoodsData } from '@/types';
 import type { GoodsResponse } from '@/types';
+import { handleError } from '@/utils/errorHandler';
 
 import { GoodsRankingFilter } from './Filter';
 import { GoodsRankingList } from './List';
@@ -19,6 +21,7 @@ export const GoodsRankingSection = () => {
   const [GoodsItem, setGoodsItem] = useState<GoodsData[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchGoods = async () => {
       const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/ranking/products?targetType=${filterOption.targetType}&rankType=${filterOption.rankType}`;
@@ -28,7 +31,7 @@ export const GoodsRankingSection = () => {
         setErrorMessage(null);
       } catch (error) {
         console.error(error);
-        setErrorMessage('데이터를 불러오는 중에 문제가 발생했습니다.');
+        setErrorMessage(handleError(error as AxiosError));
       } finally {
         setLoading(false);
       }
