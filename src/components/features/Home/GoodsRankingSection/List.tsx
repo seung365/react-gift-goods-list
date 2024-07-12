@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import type { AxiosError } from 'axios';
 import { useState } from 'react';
 
 import { Button } from '@/components/common/Button';
@@ -7,11 +8,12 @@ import { Grid } from '@/components/common/layouts/Grid';
 import { Spinner } from '@/components/common/Spinner';
 import { breakpoints } from '@/styles/variants';
 import type { GoodsData } from '@/types';
+import { handleError } from '@/utils/errorHandler';
 
 type Props = {
   goodsList: GoodsData[];
   loading: boolean;
-  errorMessage: string | null;
+  errorMessage: AxiosError | null;
 };
 
 export const GoodsRankingList = ({ goodsList, loading, errorMessage }: Props) => {
@@ -19,7 +21,6 @@ export const GoodsRankingList = ({ goodsList, loading, errorMessage }: Props) =>
 
   const currentGoodsList = hasMore ? goodsList : goodsList.slice(0, 6);
   console.log(goodsList);
-  console.log(errorMessage);
 
   if (loading) {
     return (
@@ -32,7 +33,7 @@ export const GoodsRankingList = ({ goodsList, loading, errorMessage }: Props) =>
   return (
     <Wrapper>
       {errorMessage !== null ? (
-        <div>{errorMessage}</div>
+        <div>{handleError(errorMessage)}</div>
       ) : goodsList.length === 0 ? (
         <div>보여줄 상품이 없어요!</div>
       ) : (
