@@ -12,9 +12,9 @@ const fetcthTheme = async () => {
 };
 
 export const useTheme = () => {
-  const { data: themes, isLoading: isThemeLoading } = useQuery<ThemeData[], AxiosError>({
+  const { data: themes, isLoading } = useQuery<ThemeData[], AxiosError>({
     queryKey: ['themes'],
     queryFn: fetcthTheme,
   });
-  return { themes, isThemeLoading };
+  return { themes, isLoading };
 };
