@@ -1,15 +1,11 @@
 import styled from '@emotion/styled';
-import type { AxiosError } from 'axios';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 import { DefaultGoodsItems } from '@/components/common/GoodsItem/Default';
 import { Container } from '@/components/common/layouts/Container';
 import { Grid } from '@/components/common/layouts/Grid';
 import { Spinner } from '@/components/common/Spinner';
+import { useGoodsSelection } from '@/hooks/useGoodsSelection';
 import { breakpoints } from '@/styles/variants';
-import type { GoodsData } from '@/types';
-import type { GoodsResponse } from '@/types';
 import { handleError } from '@/utils/errorHandler';
 
 type Props = {
@@ -17,38 +13,14 @@ type Props = {
 };
 
 export const ThemeGoodsSection = ({ themeKey }: Props) => {
-  const [goods, setGoods] = useState<GoodsData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const maxRetries = 5;
-  const retryDelay = 1000;
-
-  useEffect(() => {
-    const fetchGoods = async (retries = 0) => {
-      const url = `https://react-gift-mock-api-seungbeom.vercel.app/api/v1/themes/${themeKey}/products?maxResults=20`;
-      try {
-        const response = await axios.get<GoodsResponse>(url);
-        setGoods(response.data.products);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        if (retries < maxRetries) {
-          setTimeout(() => fetchGoods(retries + 1), retryDelay);
-        } else {
-          setLoading(false);
-          setErrorMessage(handleError(error as AxiosError));
-        }
-      }
-    };
-
-    fetchGoods();
-  }, [themeKey]);
+  const { goods, isLoading, error } = useGoodsSelection(themeKey);
+  const errorMessage = error ? handleError(error) : null;
 
   return (
     <Wrapper>
       <Container alignItems="center">
-        {loading && <Spinner />}
-        {errorMessage !== null && <div>{errorMessage}</div>}
+        {isLoading && <Spinner />}
+        {errorMessage && <div>{errorMessage}</div>}
         <Grid
           columns={{
             initial: 2,
@@ -57,7 +29,7 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
           gap={16}
         >
           {' '}
-          {goods.map(({ id, imageURL, name, price, brandInfo }) => (
+          {goods?.map(({ id, imageURL, name, price, brandInfo }) => (
             <DefaultGoodsItems
               key={id}
               imageSrc={imageURL}
