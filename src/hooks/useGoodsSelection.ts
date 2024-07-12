@@ -14,11 +14,11 @@ const fetchGoodsSelection = async (theme: string) => {
 export const useGoodsSelection = (themeKey: string) => {
   const {
     data: goods,
-    isLoading: isGoodsSelectionLoading,
-    error: isGoodsSelectionerror,
+    isLoading,
+    error,
   } = useQuery<GoodsData[], AxiosError>({
     queryKey: ['products', themeKey],
     queryFn: () => fetchGoodsSelection(themeKey),
   });
-  return { goods, isGoodsSelectionLoading, isGoodsSelectionerror };
+  return { goods, isLoading, error };
 };
