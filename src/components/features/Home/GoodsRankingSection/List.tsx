@@ -20,7 +20,6 @@ export const GoodsRankingList = ({ goodsList, loading, error }: Props) => {
   const [hasMore, setHasMore] = useState(false);
 
   const currentGoodsList = hasMore ? goodsList : goodsList.slice(0, 6);
-  console.log(goodsList);
 
   if (loading) {
     return (
