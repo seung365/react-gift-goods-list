@@ -8,10 +8,7 @@ import { RouterPath } from '@/routes/path';
 export const ThemePage = () => {
   const { themeKey = '' } = useParams<{ themeKey: string }>();
   const { themes, isLoading } = useTheme();
-
   const currentTheme = getCurrentTheme(themeKey, themes ?? []);
-
-  console.log('currentTheme:', currentTheme);
 
   if (isLoading) {
     return <div>Loading...</div>;
