@@ -13,10 +13,10 @@ import { handleError } from '@/utils/errorHandler';
 type Props = {
   goodsList: GoodsData[];
   loading: boolean;
-  errorMessage: AxiosError | null;
+  error: AxiosError | null;
 };
 
-export const GoodsRankingList = ({ goodsList, loading, errorMessage }: Props) => {
+export const GoodsRankingList = ({ goodsList, loading, error }: Props) => {
   const [hasMore, setHasMore] = useState(false);
 
   const currentGoodsList = hasMore ? goodsList : goodsList.slice(0, 6);
@@ -32,8 +32,8 @@ export const GoodsRankingList = ({ goodsList, loading, errorMessage }: Props) =>
 
   return (
     <Wrapper>
-      {errorMessage !== null ? (
-        <div>{handleError(errorMessage)}</div>
+      {error !== null ? (
+        <div>{handleError(error)}</div>
       ) : goodsList.length === 0 ? (
         <div>보여줄 상품이 없어요!</div>
       ) : (
