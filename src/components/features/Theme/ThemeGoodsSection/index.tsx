@@ -25,7 +25,6 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage]);
-  console.log(goodsmoreinfo?.pages[0].products.length);
   return (
     <Wrapper>
       <Container alignItems="center">
