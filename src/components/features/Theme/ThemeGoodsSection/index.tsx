@@ -25,7 +25,7 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage]);
-
+  console.log(goodsmoreinfo?.pages[0].products.length);
   return (
     <Wrapper>
       <Container alignItems="center">
@@ -38,16 +38,20 @@ export const ThemeGoodsSection = ({ themeKey }: Props) => {
           }}
           gap={16}
         >
-          {goodsmoreinfo?.pages.map((page) =>
-            page.products?.map(({ id, imageURL, name, price, brandInfo }) => (
-              <DefaultGoodsItems
-                key={id}
-                imageSrc={imageURL}
-                title={name}
-                amount={price.sellingPrice}
-                subtitle={brandInfo.name}
-              />
-            )),
+          {goodsmoreinfo?.pages[0].products.length === 0 ? (
+            <div>상품이 없어요</div>
+          ) : (
+            goodsmoreinfo?.pages.map((page) =>
+              page.products?.map(({ id, imageURL, name, price, brandInfo }) => (
+                <DefaultGoodsItems
+                  key={id}
+                  imageSrc={imageURL}
+                  title={name}
+                  amount={price.sellingPrice}
+                  subtitle={brandInfo.name}
+                />
+              )),
+            )
           )}
         </Grid>
         {isFetchingNextPage && <Spinner style={{ marginTop: '40px' }} />}
