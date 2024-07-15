@@ -37,6 +37,6 @@ export interface GoodsResponse {
   products: GoodsData[];
 }
 
-export interface ThemeResponse {
+export interface ThemesResponse {
   themes: ThemeData[];
 }
